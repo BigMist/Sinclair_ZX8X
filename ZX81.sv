@@ -164,7 +164,7 @@ assign LED  = ioctl_download | tape_ready;
 `include "build_id.v"
 localparam CONF_STR = {
 	"ZX81;;",
-	"F,O  P  ,Load tape;",
+	"F1,O  P  ,Load tape;",
 	"-;",
 	"O6,Video frequency,50Hz,60Hz;",
 	"O7,Inverse video,Off,On;",
@@ -845,7 +845,7 @@ always @(posedge clk_sys) begin
 	end
 end
 
-	mist_video #(.COLOR_DEPTH(3), .SD_HCNT_WIDTH(11), .OUT_COLOR_DEPTH(VGA_BITS), .BIG_OSD(BIG_OSD)) mist_video (	
+	mist_video #(.COLOR_DEPTH(4), .SD_HCNT_WIDTH(11), .OUT_COLOR_DEPTH(VGA_BITS), .USE_BLANKS(1),.BIG_OSD(BIG_OSD),.VIDEO_CLEANER(1)) mist_video (	
 	.clk_sys      (clk_sys     ),
 	.SPI_SCK      (SPI_SCK    ),
 	.SPI_SS3      (SPI_SS3    ),
@@ -887,7 +887,7 @@ i2c_master #(52_000_000) i2c_master (
 	.I2C_SDA     (HDMI_SDA)
 );
 
-mist_video #(.COLOR_DEPTH(3), .SD_HCNT_WIDTH(11),.OUT_COLOR_DEPTH(8), .USE_BLANKS(1), .BIG_OSD(BIG_OSD), .VIDEO_CLEANER(1)) hdmi_video (
+mist_video #(.COLOR_DEPTH(4), .SD_HCNT_WIDTH(11),.OUT_COLOR_DEPTH(8), .USE_BLANKS(1), .BIG_OSD(BIG_OSD), .VIDEO_CLEANER(1)) hdmi_video (
 	.*,
 	.clk_sys     ( clk_sys   ),
 	.scanlines   (status[13:12]),
